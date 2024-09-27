@@ -27,8 +27,8 @@ public partial class Library_Management_SystemContext : DbContext
 
     public virtual DbSet<Return> Returns { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Data Source=DESKTOP-VBKECPD;Initial Catalog=Library_Management_System;Integrated Security=True;Encrypt=True");
+    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //    => optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=Library_Management_System;Integrated Security=True;Encrypt=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
