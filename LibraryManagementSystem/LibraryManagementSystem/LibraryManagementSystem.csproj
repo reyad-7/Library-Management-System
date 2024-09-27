@@ -11,8 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Views\Book\GetAllBooks.cshtml" />
-    <None Include="Views\Book\getBook.cshtml" />
+    <None Include="Views\Book\searchBook.cshtml" />
   </ItemGroup>
 
   <ItemGroup>

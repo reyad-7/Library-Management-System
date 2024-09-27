@@ -21,9 +21,9 @@ namespace LibraryManagementSystem.Controllers
 
 
         [HttpGet]
-        public IActionResult getBook(string title, string author, string genre)
+        public IActionResult searchBook(string title, string author, string genre)
         {
-            var books = _context.Books.AsQueryable(); ;
+            var books = _context.Books.AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(title))
             {
@@ -37,7 +37,6 @@ namespace LibraryManagementSystem.Controllers
             {
                 books = books.Where(b => b.Genre == genre);
             }
-            //books = books.Where(b => (b.Author == (author) || author == "") || (b.Genre == (genre) || genre=="") || (b.Title == (title) || title ==""));
             return View(books.ToList());
         }
     }
