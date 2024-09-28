@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 
-namespace LibraryManagementSystem.Controllers
+namespace LibraryManagementSystem.Controllers.Books
 {
     public class BookController : Controller
     {

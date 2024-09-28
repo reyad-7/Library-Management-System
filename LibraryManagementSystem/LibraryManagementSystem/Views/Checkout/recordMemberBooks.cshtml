@@ -1,0 +1,43 @@
+﻿@model RecoredCheckoutModelView
+
+@{
+    ViewData["Title"] = "recordMemberBooks";
+}
+
+<h2 class="text-center mb-4">Books List</h2>
+
+<form method="get" asp-action="recordMemberBooks" class="mb-4">
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-6">
+                <label for="titleSelect">bookName</label>
+                <select name="bookName" id="BookTitleSelect" class="form-control">
+                    <option value="">-- Select Title --</option>
+                    @foreach (var item in Model.BookTitles)
+                    {
+                        <option  value="@item">@item</option>
+                    }
+                </select>
+            </div>
+            
+            <div class="col-md-6">
+                <label for="memberIDSelect">memberID</label>
+                <select name="MemberID" id="memberIDSelect" class="form-control">
+                    <option value="">-- Select memberID --</option>
+                    @foreach (var item in Model.MemberIDs)
+                    {
+                        <option value="@item">@item</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-12 text-center">
+                <button type="submit" class="btn btn-primary">Assign</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
