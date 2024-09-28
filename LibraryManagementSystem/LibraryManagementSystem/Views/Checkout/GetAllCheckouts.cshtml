@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewData["Title"] = "GetAllCheckouts";
+}
+
+@model List<Checkout>
+
+
+
+<h2 class="text-center mb-4">Checkouts List</h2>
+
+<table class="table table-striped table-hover table-bordered">
+    <thead class="thead-dark">
+        <tr>
+            <th>MemberId</th>
+            <th>MemberName</th>
+            <th>BookId</th>
+            <th>BookName</th>
+            <th>CheckOutDate</th>
+            <th>DueDate</th>
+            <th>Returned</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var check in Model)
+        {
+            <tr>
+                <td>@check.MemberId</td>
+                <td>@check.Member.FullName</td>
+                <td>@check.BookId</td>
+                <td>@check.Book.Title</td>
+                <td>@check.CheckOutDate</td>
+                <td>@check.DueDate</td>
+                <td>@check.Returned</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<style>
+    table {
+        margin: auto;
+        width: 80%;
+        background-color: #f9f9f9;
+    }
+    th, td {
+        text-align: center;
+        vertical-align: middle;
+    }
+    h2 {
+        color: #333;
+    }
+</style>
+
