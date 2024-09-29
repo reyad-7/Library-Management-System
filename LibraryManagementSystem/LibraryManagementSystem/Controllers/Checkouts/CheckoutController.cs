@@ -22,6 +22,7 @@ namespace LibraryManagementSystem.Controllers.Checkouts
                 dueDate = dueDate.AddDays(x);
             }
             var book=_context.Books.FirstOrDefault(b=> b.Title == bookName);
+            book.NoOfCopies--;
 
             _context.Add(
                 new Checkout()
@@ -42,7 +43,7 @@ namespace LibraryManagementSystem.Controllers.Checkouts
             return View(checkouts);
         }
         public IActionResult GetMemberBooksData() {
-            var Titles = _context.Books.Where(b => b.NoOfCopies>0).Select(b => b.Title).ToList();
+            var Titles = _context.Books.Where(b => b.NoOfCopies > 0).Select(b => b.Title).ToList();
             var MembersIds =_context.Members.Select(m => m.MemberId).ToList();
             RecoredCheckoutModelView recoredCheckoutModelView = new RecoredCheckoutModelView() {
                 BookTitles= Titles,
