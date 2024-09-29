@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="efpt.config.json.user" />
     <None Include="Views\Book\searchBook.cshtml" />
   </ItemGroup>
 
