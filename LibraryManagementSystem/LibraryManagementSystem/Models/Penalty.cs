@@ -17,8 +17,8 @@ public partial class Penalty
     [Column("CheckOutID")]
     public int? CheckOutId { get; set; }
 
-    [Column("Penalty_Amount")]
-    public int? PenaltyAmount { get; set; }
+    [Column("Penalty_Amount", TypeName = "decimal(18, 0)")]
+    public decimal? PenaltyAmount { get; set; }
 
     [Column("Paid_Status")]
     public bool PaidStatus { get; set; }
