@@ -13,8 +13,9 @@ CREATE TABLE Members(
     Email VARCHAR(50),
     Address VARCHAR(50)
 );
-Alter table Members 
-add  member_type varchar(50) not null;   
+
+Alter table Penalties 
+Alter column Penalty_Amount decimal;   
 
 GO
 
@@ -58,3 +59,10 @@ CREATE TABLE Penalties(
 );
 
 GO
+
+
+INSERT INTO Checkouts (MemberID, BookID, CheckOut_Date, Due_Date, Returned) VALUES
+(5, 1, '2024-09-01', '2024-09-15', 0), -- Member 1 checks out Batman
+(6, 2, '2024-09-05', '2024-09-19', 0), -- Member 1 checks out Spider
+(7, 3, '2024-09-02', '2024-09-16', 0), -- Member 2 checks out SuperMan
+(8, 2, '2024-09-07', '2024-09-21', 0); -- Member 2 checks out Elzengy

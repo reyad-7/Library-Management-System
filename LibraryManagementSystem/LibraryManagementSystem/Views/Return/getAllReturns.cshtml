@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewData["Title"] = "getAllReturns";
+}
+
+@model List<Return> 
+
+<h2 class="text-center mb-4">Returns Books</h2>
+
+<table class="table table-striped table-hover table-bordered">
+    <thead class="thead-dark">
+        <tr>
+            <th>ReturnId</th>
+            <th>CheckOutId</th>
+            <th>ReturnDate</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var ret in Model)
+        {
+                <tr>
+                    <td>@ret.ReturnId</td>
+                    <td>@ret.CheckOutId</td>
+                    <td>@ret.ReturnDate</td>
+                </tr>
+        }
+    </tbody>
+</table>
+
+<style>
+    table {
+        margin: auto;
+        width: 80%;
+        background-color: #f9f9f9;
+    }
+    th, td {
+        text-align: center;
+        vertical-align: middle;
+    }
+    h2 {
+        color: #333;
+    }
+</style>
+
+
+

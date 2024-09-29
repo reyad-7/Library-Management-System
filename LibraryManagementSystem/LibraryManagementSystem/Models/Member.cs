@@ -28,7 +28,7 @@ public partial class Member
     public string Address { get; set; }
 
     [Column("member_type")]
-    public bool MemberType { get; set; }
+    public bool? MemberType { get; set; }
 
     [InverseProperty("Member")]
     public virtual ICollection<Checkout> Checkouts { get; set; } = new List<Checkout>();
