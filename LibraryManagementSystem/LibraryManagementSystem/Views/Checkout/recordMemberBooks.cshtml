@@ -22,9 +22,9 @@
             
             <div class="col-md-6">
                 <label for="memberIDSelect">memberID</label>
-                <select name="MemberID" id="memberIDSelect" class="form-control">
-                    <option value="">-- Select memberID --</option>
-                    @foreach (var item in Model.MemberIDs)
+                <select name="memberUsername" id="memberIDSelect" class="form-control">
+                    <option value="">-- Select memberUsername --</option>
+                    @foreach (var item in Model.MembersUsername)
                     {
                         <option value="@item">@item</option>
                     }

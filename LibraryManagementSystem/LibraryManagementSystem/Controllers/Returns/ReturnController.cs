@@ -1,8 +1,10 @@
 ﻿using LibraryManagementSystem.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryManagementSystem.Controllers.Returns
 {
+    [Authorize(Roles = "Admin")]
     public class ReturnController : Controller
     {
         private readonly IConfiguration _configuration;

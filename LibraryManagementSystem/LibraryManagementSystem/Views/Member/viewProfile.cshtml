@@ -1,0 +1,26 @@
+﻿
+@model AppUser
+@{
+    ViewData["Title"] = "viewProfile";
+}
+
+<div class="container mt-4">
+    <div class="mb-3">
+        @Html.Label("Full Name")
+        <input type="text" name="name" value="@Model.UserName" class="form-control" disabled />
+    </div>
+    <div class="mb-3">
+        @Html.Label("Address")
+        <input type="text" name="address" value="@Model.Address" class="form-control" disabled />
+    </div>
+    <div class="mb-3">
+        @Html.Label("Email")
+        <input type="email" name="email" value="@Model.Email" class="form-control" disabled />
+    </div>
+    <div class="mb-3">
+        @Html.Label("Phone")
+        <input type="tel" name="phone" value="@Model.PhoneNumber" class="form-control" disabled />
+    </div>
+</div>
+
+

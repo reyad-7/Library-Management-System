@@ -23,10 +23,6 @@
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[Members]",
-         "ObjectType": 0
-      },
-      {
          "Name": "[dbo].[Penalties]",
          "ObjectType": 0
       },
