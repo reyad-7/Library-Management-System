@@ -21,7 +21,7 @@ public partial class Penalty
     public decimal? PenaltyAmount { get; set; }
 
     [Column("Paid_Status")]
-    public bool PaidStatus { get; set; }
+    public bool? PaidStatus { get; set; }
 
     [ForeignKey("CheckOutId")]
     [InverseProperty("Penalties")]

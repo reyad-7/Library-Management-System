@@ -1,4 +1,6 @@
+using System.Configuration;
 using LibraryManagementSystem.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -9,6 +11,27 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<Library_Management_SystemContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+//builder.Services.AddIdentity<AppUser, IdentityRole>()
+//    .AddEntityFrameworkStores<Library_Management_SystemContext>();
+
+
+builder.Services.AddIdentity<AppUser, IdentityRole>(option =>
+{
+
+    option.Password.RequiredLength = 6;
+    option.Password.RequireDigit = true;
+    option.Password.RequireNonAlphanumeric = false;
+    option.Password.RequireUppercase = false;
+
+})
+    .AddEntityFrameworkStores<Library_Management_SystemContext>();
+
+//builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
+//{
+//    options.SignIn.RequireConfirmedAccount = true;
+//}).AddEntityFrameworkStores<Library_Management_SystemContext>();
+
 
 
 var app = builder.Build();
@@ -25,7 +48,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

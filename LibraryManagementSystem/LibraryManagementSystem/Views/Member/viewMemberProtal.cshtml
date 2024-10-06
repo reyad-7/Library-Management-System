@@ -1,0 +1,67 @@
+﻿
+@{
+    ViewData["Title"] = "viewMemberProtal";
+}
+
+@model List<MemberPortalViewModel>
+
+<h2 class="text-center mb-4">Member Protal</h2>
+
+<table class="table table-striped table-hover table-bordered">
+    <thead class="thead-dark">
+        <tr>
+            <th>BookTitle</th>
+            <th>CheckOutDate</th>
+            <th>DueDate</th>
+            <th>Penalty_Amount</th>
+            <th>ReturnDate</th>
+            <th>Paid_Status</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.BookTitle</td>
+                <td>@item.CheckOutDate</td>
+                <td>@item.DueDate</td>
+                <td>@item.PenaltyAmount</td>
+                @if (item.ReturnDate == default)
+                {
+                    <td>--/--/--</td>
+                }
+                else
+                {
+                    <td>@item.ReturnDate</td>
+                }
+                @if (item.PaidStatus == true)
+                {
+                    <td style="color:green">@item.PaidStatus</td>
+                }
+                else
+                {
+                    <td style="color:red">@item.PaidStatus</td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+
+<style>
+    table {
+        margin: auto;
+        width: 80%;
+        background-color: #f9f9f9;
+    }
+    th, td {
+        text-align: center;
+        vertical-align: middle;
+    }
+    h2 {
+        color: #333;
+    }
+</style>
+
+
+
