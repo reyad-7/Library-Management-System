@@ -1,4 +1,5 @@
 ﻿using LibraryManagementSystem.Models;
+using LibraryManagementSystem.Services.ReturnService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,46 +8,17 @@ namespace LibraryManagementSystem.Controllers.Returns
     [Authorize(Roles = "Admin")]
     public class ReturnController : Controller
     {
-        private readonly IConfiguration _configuration;
-        private readonly Library_Management_SystemContext _context;
-        public ReturnController(Library_Management_SystemContext context, IConfiguration configuration)
+        private readonly IReturnService _returnService;
+
+        public ReturnController (IReturnService returnService)
         {
-            _configuration = configuration;
-            _context = context;
+            _returnService = returnService;
         }
 
         public IActionResult recordReturn(int checkoutId)
         {
-            
-            Return returnedBook = new Return()
-            {
-                CheckOutId = checkoutId,
-                ReturnDate = DateOnly.FromDateTime(DateTime.Now)
-            };
-            _context.Add(returnedBook);
-
-            var checkOutBook  = _context.Checkouts.FirstOrDefault(c=> c.CheckOutId == checkoutId);
-            checkOutBook.Returned = true;
-
-
-            DateTime returnedDateTime = returnedBook.ReturnDate.ToDateTime(new TimeOnly(0, 0));
-            DateTime dueDateTime = checkOutBook.DueDate.ToDateTime(new TimeOnly(0, 0));
-            
-            int daysDifference = (returnedDateTime - dueDateTime).Days;
-
-            decimal penaltyCost = decimal.Parse(_configuration["AppConstants:Penalty"]);
-
-            if (daysDifference > 0)
-            {
-                Penalty penalty = new Penalty()
-                {
-                    CheckOutId = checkoutId,
-                    PenaltyAmount = daysDifference * penaltyCost,
-                    PaidStatus = false,
-                };
-                _context.Add(penalty);
-            }
-            _context.SaveChanges();
+            _returnService.recordReturn(checkoutId);
+            _returnService.Save();
             return RedirectToAction("getAllReturns");
         }
 
@@ -54,8 +26,7 @@ namespace LibraryManagementSystem.Controllers.Returns
 
         public IActionResult getAllReturns()
         {
-            var returns = _context.Returns.ToList();
-
+            var returns = _returnService.getAllReturns();
             return View(returns);
         }
 

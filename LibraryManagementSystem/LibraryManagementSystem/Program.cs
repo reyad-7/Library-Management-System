@@ -1,5 +1,15 @@
 using System.Configuration;
 using LibraryManagementSystem.Models;
+using LibraryManagementSystem.Repositories.BookRepository;
+using LibraryManagementSystem.Repositories.CheckoutRepositry;
+using LibraryManagementSystem.Repositories.MemberRepository;
+using LibraryManagementSystem.Repositories.PenaltyRepository;
+using LibraryManagementSystem.Repositories.ReturnRepository;
+using LibraryManagementSystem.Services.bookService;
+using LibraryManagementSystem.Services.checkoutService;
+using LibraryManagementSystem.Services.memberService;
+using LibraryManagementSystem.Services.PenaltyService;
+using LibraryManagementSystem.Services.ReturnService;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,6 +24,23 @@ builder.Services.AddDbContext<Library_Management_SystemContext>(options =>
 
 //builder.Services.AddIdentity<AppUser, IdentityRole>()
 //    .AddEntityFrameworkStores<Library_Management_SystemContext>();
+
+
+builder.Services.AddScoped<IBookRepository, BookRepository>();
+builder.Services.AddScoped<IBookService, BookService>();
+
+builder.Services.AddScoped<ICheckoutRepositry, CheckoutRepositry>();
+builder.Services.AddScoped<ICheckOutService, CheckOutService>();
+
+builder.Services.AddScoped<IMemberRepository, memberRepository>();
+builder.Services.AddScoped<IMemberService, memberService>();
+
+builder.Services.AddScoped<IPenaltyRepository, PenaltyRepository>();
+builder.Services.AddScoped<IPenaltyService, PenaltyService>();
+
+builder.Services.AddScoped<IReturnRepository, ReturnRepository>();
+builder.Services.AddScoped<IReturnService,ReturnService>();
+
 
 
 builder.Services.AddIdentity<AppUser, IdentityRole>(option =>

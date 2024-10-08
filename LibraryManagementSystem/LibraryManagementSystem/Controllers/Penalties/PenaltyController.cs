@@ -1,4 +1,5 @@
 ﻿using LibraryManagementSystem.Models;
+using LibraryManagementSystem.Services.PenaltyService;
 using LibraryManagementSystem.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,50 +10,23 @@ namespace LibraryManagementSystem.Controllers.Penalties
     [Authorize(Roles = "Admin")]
     public class PenaltyController : Controller
     {
-        private readonly Library_Management_SystemContext _context;
+        private readonly IPenaltyService _penaltyService;
 
-        public PenaltyController(Library_Management_SystemContext context)
+        public PenaltyController(IPenaltyService penaltyService)
         {
-            _context = context;
+            _penaltyService = penaltyService;
         }
 
         public IActionResult payPenalty(int PenaltyId)
         {
-            var Specificpenalty = _context.Penalties.FirstOrDefault(p => p.PenaltyId == PenaltyId);
-            Specificpenalty.PaidStatus = true;
-
-            _context.SaveChanges();
+            _penaltyService.payPenalty(PenaltyId);
+            _penaltyService.save();
             return RedirectToAction("GetAllPenalties");
         }
-
         public IActionResult GetAllPenalties()
         {
-
-            var penalties = _context.Penalties.Include(ch => ch.CheckOut).ThenInclude(ch => ch.Book)
-                            .Include(ch => ch.CheckOut).ThenInclude(ch => ch.User);
-
-
-            List<MemberPenaltyDetailsModelView> memberPenaltyDetails = new List<MemberPenaltyDetailsModelView>();
-            foreach (var penalty in penalties)
-            {
-                MemberPenaltyDetailsModelView memberPenalty = new MemberPenaltyDetailsModelView()
-                {
-                    PenaltyId = penalty.PenaltyId,
-                    CheckOutId = penalty.CheckOutId,
-                    PaidStatus = penalty.PaidStatus ?? true,
-                    PenaltyAmount = penalty.PenaltyAmount,
-
-                    BookTitle = penalty.CheckOut.Book.Title,
-                    CheckOutDate = penalty.CheckOut.CheckOutDate,
-                    DueDate = penalty.CheckOut.DueDate,
-                    MemberName = penalty.CheckOut.User.UserName,
-                    ReturnDate = _context.Returns.FirstOrDefault(r => r.CheckOutId == penalty.CheckOut.CheckOutId).ReturnDate
-
-                };
-                memberPenaltyDetails.Add(memberPenalty);
-            }
-
-            return View(memberPenaltyDetails);
+            var penalties = _penaltyService.GetAllPenalties(); 
+            return View(penalties);
         }
     }
 }

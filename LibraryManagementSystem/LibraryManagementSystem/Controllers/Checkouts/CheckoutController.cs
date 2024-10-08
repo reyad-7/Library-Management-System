@@ -1,6 +1,8 @@
 ﻿using LibraryManagementSystem.Models;
+using LibraryManagementSystem.Services.checkoutService;
 using LibraryManagementSystem.ViewModel;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 namespace LibraryManagementSystem.Controllers.Checkouts
@@ -8,53 +10,29 @@ namespace LibraryManagementSystem.Controllers.Checkouts
     [Authorize(Roles = "Admin")]
     public class CheckoutController : Controller
     {
-        private readonly IConfiguration _configuration;
-        private readonly Library_Management_SystemContext _context;
-        public CheckoutController(Library_Management_SystemContext context, IConfiguration configuration)
+        private readonly ICheckOutService _checkoutService;
+        public CheckoutController(ICheckOutService checkOutService)
         {
-            _configuration = configuration;
-            _context = context;
+            _checkoutService = checkOutService;
         }
         public IActionResult recordMemberBooks(string bookName, string memberUsername)
         {
-            DateTime dueDate = DateTime.Now;
-            double x;
-            if (double.TryParse(_configuration["AppConstants:DueDate"], out x))
+            if (bookName == null || memberUsername == null)
             {
-                dueDate = dueDate.AddDays(x);
+                return GetMemberBooksData() ;
             }
-            //var name= memberUsername;
-            var book = _context.Books.FirstOrDefault(b => b.Title == bookName);
-            book.NoOfCopies--;
-            _context.Checkouts.Add(
-                new Checkout()
-                {
-                     
-                    UserId = _context.AppUsers.FirstOrDefault(u => u.UserName == memberUsername).Id,
-                    CheckOutDate = DateOnly.FromDateTime(DateTime.Now),
-                    DueDate = DateOnly.FromDateTime(dueDate),
-                    BookId = book.BookId,
-                    Returned = false,
-                }
-             );
-            _context.SaveChanges();
-            return RedirectToAction("GetAllCheckouts");
+            _checkoutService.recordMemberBooks(bookName, memberUsername);
+            _checkoutService.saveChanges();
+            return GetAllCheckouts();
         }
         public IActionResult GetAllCheckouts()
         {
-            var checkouts = _context.Checkouts.Include(c => c.User).Include(c => c.Book).ToList();
+            var checkouts = _checkoutService.GetAllCheckouts(); 
             return View(checkouts);
         }
-        public IActionResult GetMemberBooksData()
+		public IActionResult GetMemberBooksData()
         {
-            var Titles = _context.Books.Where(b => b.NoOfCopies > 0).Select(b => b.Title).ToList();
-            var MembersUsername = _context.AppUsers.Select(m => m.UserName).ToList();
-            RecoredCheckoutModelView recoredCheckoutModelView = new RecoredCheckoutModelView()
-            {
-                BookTitles = Titles,
-                MembersUsername = MembersUsername
-            };
-            return View("recordMemberBooks", recoredCheckoutModelView);
+            return View("recordMemberBooks", _checkoutService.GetMemberBooksData());
         }
     }
 }

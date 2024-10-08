@@ -18,10 +18,7 @@ namespace LibraryManagementSystem.Controllers.UserAccount
             this.userManager = userManager;
             this.signInManager = signInManager;
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
+        
         [HttpGet]
         //[AllowAnonymous]
         public IActionResult viewRegistrationForm()
@@ -38,19 +35,15 @@ namespace LibraryManagementSystem.Controllers.UserAccount
                 appUser.UserName = reg.UserName;
                 appUser.PasswordHash = reg.Password;
                 appUser.FullName = reg.FullName;
+                appUser.Email = reg.Email;
+                appUser.PhoneNumber = reg.PhoneNumber;
 
                 IdentityResult result = await userManager.CreateAsync(appUser, reg.Password);
                 if (result.Succeeded)
                 {
                     await userManager.AddToRoleAsync(appUser, "User");
                     await signInManager.SignInAsync(appUser, false);
-                    /* 
-                      Connect ASPUser with member model one to one relation
-                        //Member member = new Member();
-                        //member.FullName=;
-                     
-                     */
-
+                    
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -68,7 +61,6 @@ namespace LibraryManagementSystem.Controllers.UserAccount
             return View();
         }
         [HttpPost]
-        //[AllowAnonymous]
         public async Task<IActionResult> SaveLogin(UserLoginViewModel userLoginViewModel)
         {
             if (ModelState.IsValid)

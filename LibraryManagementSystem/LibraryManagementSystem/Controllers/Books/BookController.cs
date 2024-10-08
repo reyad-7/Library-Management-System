@@ -1,4 +1,5 @@
 ﻿using LibraryManagementSystem.Models;
+using LibraryManagementSystem.Services.bookService;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 
@@ -6,16 +7,16 @@ namespace LibraryManagementSystem.Controllers.Books
 {
     public class BookController : Controller
     {
-        private readonly Library_Management_SystemContext _context;
+        private readonly IBookService _bookService;
 
-        public BookController(Library_Management_SystemContext context)
+        public BookController(IBookService bookService)
         {
-            _context = context;
+            _bookService = bookService;
         }
 
         public IActionResult GetAllBooks()
         {
-            var books = _context.Books.ToList();
+            var books = _bookService.GetAllBooks();
             return View(books);
         }
 
@@ -23,21 +24,8 @@ namespace LibraryManagementSystem.Controllers.Books
         [HttpGet]
         public IActionResult searchBook(string title, string author, string genre)
         {
-            var books = _context.Books.AsQueryable();
-
-            if (!string.IsNullOrWhiteSpace(title))
-            {
-                books = books.Where(b => b.Title == title);
-            }
-            if (!string.IsNullOrWhiteSpace(author))
-            {
-                books = books.Where(b => b.Author == author);
-            }
-            if (!string.IsNullOrWhiteSpace(genre))
-            {
-                books = books.Where(b => b.Genre == genre);
-            }
-            return View(books.ToList());
+            var Books = _bookService.searchBook(title, author, genre);
+            return View(Books);
         }
     }
 }

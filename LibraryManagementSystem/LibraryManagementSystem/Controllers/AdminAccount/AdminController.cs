@@ -17,10 +17,7 @@ namespace LibraryManagementSystem.Controllers.AdminAccount
             this.userManager = userManager;
             this.signInManager = signInManager;
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
+
         [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult AdminRegistration()
@@ -60,25 +57,7 @@ namespace LibraryManagementSystem.Controllers.AdminAccount
         {
             return View();
         }
-        //[HttpPost]
-        //public async Task<IActionResult> SaveLogin(UserLoginViewModel userLoginViewModel)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        AppUser appUser = await userManager.FindByNameAsync(userLoginViewModel.UserName);
-        //        if (appUser != null)
-        //        {
-        //            bool ok = await userManager.CheckPasswordAsync(appUser, userLoginViewModel.Password);
-        //            if (ok)
-        //            {
-        //                await signInManager.SignInAsync(appUser, userLoginViewModel.RememberMe);
-        //                return RedirectToAction("viewBorrowingHistory", "Member");
-        //            }
-        //        }
-        //        ModelState.AddModelError("", "Username or password wrong");
-        //    }
-        //    return View("Login", userLoginViewModel);
-        //}
+       
         public async Task<IActionResult> SignOut()
         {
             await signInManager.SignOutAsync();
