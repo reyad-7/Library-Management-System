@@ -1,49 +1,51 @@
 ﻿@model LibraryManagementSystem.ViewModel.RegistrationModelView
 
 @{
-    ViewData["Title"] = "AdminRegistration";
+    ViewData["Title"] = "Admin Registration";
 }
 
-<h1>AdminRegistration</h1>
+<h1 class="text-center mb-4">Admin Registration</h1>
 
-<h4>RegistrationModelView</h4>
+<h4 class="text-center mb-3">Register Your Admin Account</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="saveAdminRegistration">
-            <div asp-validation-summary="All" class="text-danger"></div>
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <form asp-action="saveAdminRegistration" method="post" class="border p-4 shadow-sm rounded">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
             <div class="form-group">
                 <label asp-for="UserName" class="control-label"></label>
-                <input asp-for="UserName" class="form-control" />
+                <input asp-for="UserName" class="form-control" placeholder="Enter your username" />
                 <span asp-validation-for="UserName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="FullName" class="control-label"></label>
-                <input asp-for="FullName" class="form-control" />
+                <input asp-for="FullName" class="form-control" placeholder="Enter your full name" />
                 <span asp-validation-for="FullName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
+                <input asp-for="Password" class="form-control" placeholder="Enter your password" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ConfirmPassword" class="control-label"></label>
-                <input asp-for="ConfirmPassword" class="form-control" />
+                <input asp-for="ConfirmPassword" class="form-control" placeholder="Confirm your password" />
                 <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
+                <input asp-for="Address" class="form-control" placeholder="Enter your address" />
                 <span asp-validation-for="Address" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create Account" class="btn btn-primary btn-block" />
             </div>
         </form>
     </div>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
