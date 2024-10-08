@@ -28,15 +28,18 @@ public partial class Library_Management_SystemContext : IdentityDbContext<AppUse
     public virtual DbSet<Return> Returns { get; set; }
 
     public virtual DbSet<AppUser> AppUsers { get; set; }
-    //public virtual DbSet<AspNetUs>
+	public virtual DbSet<IdentityRole> AspNetRoles { get; set; }
+	public virtual DbSet<IdentityUserRole<string>> AspNetUserRoles { get; set; }
 
-    //public virtual DbSet<Asp>
+	//public virtual DbSet<AspNetUs>
 
-    //    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-    //        => optionsBuilder.UseSqlServer("Data Source=DESKTOP-0GO3MVT;Initial Catalog=Library_Management_System;Integrated Security=True;Encrypt=True");
+	//public virtual DbSet<Asp>
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+	//    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+	//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+	//        => optionsBuilder.UseSqlServer("Data Source=DESKTOP-0GO3MVT;Initial Catalog=Library_Management_System;Integrated Security=True;Encrypt=True");
+
+	protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
 
