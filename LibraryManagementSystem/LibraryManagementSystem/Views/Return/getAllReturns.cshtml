@@ -1,27 +1,26 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "getAllReturns";
 }
 
 @model List<Return> 
 
-<h2 class="text-center mb-4">Returns Books</h2>
+<h2 class="text-center mb-4" style="font-size: 2rem;">Returns Books</h2>
 
-<table class="table table-striped table-hover table-bordered">
+<table >
     <thead class="thead-dark">
         <tr>
-            <th>ReturnId</th>
-            <th>CheckOutId</th>
-            <th>ReturnDate</th>
+            <th style="font-size: 1.2rem;">ReturnId</th>
+            <th style="font-size: 1.2rem;">CheckOutId</th>
+            <th style="font-size: 1.2rem;">ReturnDate</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var ret in Model)
         {
                 <tr>
-                    <td>@ret.ReturnId</td>
-                    <td>@ret.CheckOutId</td>
-                    <td>@ret.ReturnDate</td>
+                    <td style="font-size: 1.1rem;">@ret.ReturnId</td>
+                    <td style="font-size: 1.1rem;">@ret.CheckOutId</td>
+                    <td style="font-size: 1.1rem;">@ret.ReturnDate.ToString("MM/dd/yyyy")</td>
                 </tr>
         }
     </tbody>
@@ -32,15 +31,23 @@
         margin: auto;
         width: 80%;
         background-color: #f9f9f9;
+        border-radius: 10px; /* Rounded corners */
+        overflow: hidden; /* Clip the corners */
     }
     th, td {
         text-align: center;
         vertical-align: middle;
+        padding: 12px; /* Increase padding for better spacing */
+    }
+    th {
+        background-color: #343a40; /* Dark background for the header */
+        color: white; /* White text for header */
+    }
+    tr:hover {
+        background-color: #e9ecef; /* Light grey background on hover */
     }
     h2 {
         color: #333;
+        font-weight: bold; /* Make title bold */
     }
 </style>
-
-
-
