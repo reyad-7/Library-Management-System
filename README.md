@@ -81,7 +81,7 @@
 
 ---
 ### Contributers
-[Tawfik Mohamed Khalil](https://github.com/TawfikMohamed040)
-[Mohamed Ahmed Reyad](https://github.com/reyad-7)
+- [Tawfik Mohamed Khalil](https://github.com/TawfikMohamed040)
+- [Mohamed Ahmed Reyad](https://github.com/reyad-7)
 
 For more details on how to contribute or further extend the system, please refer to the **Documentation** folder.
