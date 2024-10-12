@@ -23,7 +23,7 @@ namespace LibraryManagementSystem.Controllers.Checkouts
             }
             _checkoutService.recordMemberBooks(bookName, memberUsername);
             _checkoutService.saveChanges();
-            return GetAllCheckouts();
+            return RedirectToAction("GetAllCheckouts");
         }
         public IActionResult GetAllCheckouts()
         {

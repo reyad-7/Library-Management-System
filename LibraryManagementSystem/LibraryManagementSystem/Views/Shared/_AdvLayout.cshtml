@@ -1,0 +1,226 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	 <style>
+			
+	.menu-item ul {
+		display: none;
+		position: absolute;
+		top: 100%;
+		left: 0;
+		background: #ddd;
+		padding: 0;
+		margin: 0;
+		list-style: none;
+		border: 1px solid #ccc;
+		z-index: 1000;
+		width: 200px;
+		border-radius: 5px; 
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	}
+
+	.menu-item:hover ul {
+		display: block;
+	}
+
+	.menu-item ul li a {
+		display: block;
+		padding: 10px;
+		text-decoration: none;
+	}
+
+	.menu-item ul li a:hover {
+		background-color: #ffffff; 
+		color: #007baaf;          
+		font-weight: bold;        
+		border-radius: 7px;       
+	}
+
+
+	</style>
+
+	<title>@ViewData["Title"] - Library Managment System - Free Book Store HTML CSS Template</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="author" content="">
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+	<link rel="stylesheet" type="text/css" href="~/css/normalize.css">
+	<link rel="stylesheet" type="text/css" href="~/icomoon/icomoon.css">
+	<link rel="stylesheet" type="text/css" href="~/css/vendor.css">
+	<link rel="stylesheet" type="text/css" href="~/css/style.css">
+
+</head>
+<body>
+	<header id="header">
+			<div class="container-fluid">
+				<div class="row">
+
+					<div class="col-md-2">
+						<div class="main-logo">
+						<a asp-controller="Home" asp-action="index"><img src="~/images/TR-logo.png" alt="logo" width="100px" height="80px"></a>
+						</div>
+
+					</div>
+
+					<div class="col-md-10">
+
+						<nav id="navbar">
+							<div class="main-menu stellarnav">
+								<ul class="menu-list">
+									<li class="nav-item">
+										<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link text-dark" asp-area="" asp-controller="Book" asp-action="GetAllBooks">Books</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link text-dark" asp-area="" asp-controller="Book" asp-action="searchBook">Search for a book</a>
+									</li>
+									@if (!User.Identity.IsAuthenticated)
+									{
+										<li class="nav-item">
+											<a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="viewRegistrationForm">Sign up</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Sign in</a>
+										</li>
+									}
+									@if (User.Identity.IsAuthenticated)
+									{
+										var ControllerName = "Admin";
+										if (User.IsInRole("User"))
+										{
+											ControllerName = "Account";
+										<li class="menu-item has-sub">
+													<a href="#" class="nav-link">User Statistics</a>
+													<ul>
+														<li >
+															<a asp-area="" asp-controller="Member" asp-action="viewBorrowingHistory">Borrowing History</a>
+														</li>
+														<li >
+															<a asp-area="" asp-controller="Member" asp-action="viewMemberProtal">Member Protal</a>
+														</li>
+													</ul>
+												</li>
+											@* <li class="nav-item">
+												<a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="SignOut">Sign Out</a>
+											</li> *@
+										}
+										else if (User.IsInRole("Admin"))
+										{
+											<li class="menu-item has-sub">
+															<a href="#" class="nav-link">Library Operations</a>
+
+													<ul>
+														<li>
+														<a  asp-area="" asp-controller="Checkout" asp-action="GetMemberBooksData">Assign Book </a>
+														</li>
+														<li >
+															<a  asp-area="" asp-controller="Checkout" asp-action="GetAllCheckouts">Get All Checkouts</a>
+														</li>
+														<li >
+															<a  asp-area="" asp-controller="Return" asp-action="getAllReturns">Returned Books</a>
+														</li>
+														<li >
+															<a  asp-area="" asp-controller="Penalty" asp-action="GetAllPenalties">Penalties Table</a>
+														</li>
+													</ul>
+												</li>
+											<li class="menu-item has-sub">
+														<a href="#" class="nav-link">Admin Operations</a>
+													<ul>
+														<li >
+														<a asp-area="" asp-controller="Admin" asp-action="AdminRegistration">Create New Admin </a>
+														</li>
+														<li >
+														<a  asp-area="" asp-controller="Role" asp-action="AddRole">Add New Role </a>
+														</li>
+													</ul>
+												</li>
+
+										}
+										<li class="nav-item">
+											<a class="nav-link text-dark" asp-area="" asp-controller="Member" asp-action="viewProfile">
+													<i class="icon icon-user"></i><span>@User.Identity.Name</span>
+											</a>
+										</li>
+										<li class="nav-item">
+												<a class="nav-link text-dark" asp-area="" asp-controller="@ControllerName" asp-action="SignOut">Sign Out</a>
+										</li>
+									}
+								</ul>
+
+								<div class="hamburger">
+									<span class="bar"></span>
+									<span class="bar"></span>
+									<span class="bar"></span>
+								</div>
+
+							</div>
+						</nav>
+
+					</div>
+
+				</div>
+			</div>
+		</header>
+
+	@RenderBody();
+
+	<div id="footer-bottom">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+
+					<div class="copyright">
+						<div class="row">
+
+							<div class="col-md-6">
+								<p>© 2022 All rights reserved. Free HTML Template by <a
+										href="https://www.templatesjungle.com/" target="_blank">TemplatesJungle</a></p>
+							</div>
+
+							<div class="col-md-6">
+								<div class="social-links align-right">
+									<ul>
+										<li>
+											<a href="#"><i class="icon icon-facebook"></i></a>
+										</li>
+										<li>
+											<a href="#"><i class="icon icon-twitter"></i></a>
+										</li>
+										<li>
+											<a href="#"><i class="icon icon-youtube-play"></i></a>
+										</li>
+										<li>
+											<a href="#"><i class="icon icon-behance-square"></i></a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div><!--grid-->
+				</div><!--footer-bottom-content-->
+			</div>
+		</div>
+	</div>
+	@RenderSection("Scripts", required: false)
+	<script src="~/js/jquery-1.11.0.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+		crossorigin="anonymous"></script>
+	<script src="~/js/plugins.js"></script>
+	<script src="~/js/script.js"></script>
+
+</body>
+</html>
+
