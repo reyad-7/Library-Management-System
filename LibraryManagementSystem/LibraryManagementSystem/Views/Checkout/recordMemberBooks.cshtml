@@ -1,43 +1,76 @@
 ﻿@model RecoredCheckoutModelView
 
 @{
-    ViewData["Title"] = "recordMemberBooks";
+    ViewData["Title"] = "Record Member Books";
 }
 
-<h2 class="text-center mb-4">Books List</h2>
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Assign Books to Members</h2>
 
-<form method="get" asp-action="recordMemberBooks" class="mb-4">
-    <div class="form-group">
-        <div class="row">
-            <div class="col-md-6">
-                <label for="titleSelect">bookName</label>
-                <select name="bookName" id="BookTitleSelect" class="form-control">
-                    <option value="">-- Select Title --</option>
-                    @foreach (var item in Model.BookTitles)
-                    {
-                        <option  value="@item">@item</option>
-                    }
-                </select>
+    <form method="get" asp-action="recordMemberBooks" class="bg-light p-4 rounded shadow">
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="BookTitleSelect" class="font-weight-bold">Book Name</label>
+                    <select name="bookName" id="BookTitleSelect" class="form-control form-control-lg">
+                        <option value="">-- Select Title --</option>
+                        @foreach (var item in Model.BookTitles)
+                        {
+                            <option value="@item">@item</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="memberIDSelect" class="font-weight-bold">Member Username</label>
+                    <select name="memberUsername" id="memberIDSelect" class="form-control form-control-lg">
+                        <option value="">-- Select Member Username --</option>
+                        @foreach (var item in Model.MembersUsername)
+                        {
+                            <option value="@item">@item</option>
+                        }
+                    </select>
+                </div>
             </div>
             
-            <div class="col-md-6">
-                <label for="memberIDSelect">memberID</label>
-                <select name="memberUsername" id="memberIDSelect" class="form-control">
-                    <option value="">-- Select memberUsername --</option>
-                    @foreach (var item in Model.MembersUsername)
-                    {
-                        <option value="@item">@item</option>
-                    }
-                </select>
+            <div class="text-center">
+                <button type="submit" >Assign</button>
             </div>
         </div>
-        <div class="row mt-3">
-            <div class="col-md-12 text-center">
-                <button type="submit" class="btn btn-primary">Assign</button>
-            </div>
-        </div>
-    </div>
-</form>
+    </form>
+</div>
 
+<style>
+    
 
+    h2 {
+        color: #343a40; /* Dark text for visibility */
+    }
 
+    .form-control {
+        border-radius: 5px; /* Rounded corners for inputs */
+        border: 1px solid #ced4da; /* Soft border */
+    }
+
+    .form-control:focus {
+        border-color: #80bdff; /* Highlight on focus */
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Focus shadow */
+    }
+
+    .btn-primary {
+        background-color: #007bff; /* Bootstrap primary button color */
+        border: none; /* Remove default border */
+        padding: 12px 20px; /* Increased padding for button */
+        border-radius: 5px; /* Rounded button */
+        font-size: 1.1em; /* Increase font size */
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3; /* Darker blue on hover */
+        cursor: pointer; /* Pointer cursor on hover */
+    }
+
+    .shadow {
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    }
+</style>
