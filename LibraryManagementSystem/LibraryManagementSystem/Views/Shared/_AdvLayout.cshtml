@@ -1,48 +1,40 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-	 <style>
-			/* Ensure that the dropdown is hidden initially */
-	.menu-item ul {
-		display: none;
-		position: absolute;
-		top: 100%;
-		left: 0;
-		background: #ddd;
-		padding: 0;
-		margin: 0;
-		list-style: none;
-		border: 1px solid #ccc;
-		z-index: 1000;
-		width: 200px;
-		border-radius: 5px; /* Optional: add rounded corners */
-		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: add a shadow for better visibility */
-	}
+	<style>
+			.menu-item ul {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				background: #ddd;
+				padding: 0;
+				margin: 0;
+				list-style: none;
+				border: 1px solid #ccc;
+				z-index: 1000;
+				width: 200px;
+				border-radius: 5px;
+				box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+			}
 
-	/* Show the dropdown when hovering over the parent menu-item */
-	.menu-item:hover ul {
-		display: block;
-	}
+			.menu-item:hover ul {
+				display: block;
+			}
 
-	/* Style for the links inside the dropdown */
-	.menu-item ul li a {
-		display: block;
-		padding: 10px;
-		text-decoration: none;
-		/* color: #333; */
-		/* transition: background-color 0.3s ease, color 0.3s ease; */
-	}
+			.menu-item ul li a {
+				display: block;
+				padding: 10px;
+				text-decoration: none;
+			}
+			.menu-item ul li a:hover {
+				background-color: #ffffff;
+				color: #007baaf;
+				font-weight: bold;
+				border-radius: 7px;
 
-	/* Hover effects for dropdown items */
-	.menu-item ul li a:hover {
-		background-color: #ffffff; /* White on hover */
-		color: #007baaf;           /* Keep the text color blue */
-		font-weight: bold;         /* Optional: make text bold */
-		border-radius: 7px;        /* Optional: add rounded corners */
-	}
-
-
+			}
 	</style>
 
 	<title>@ViewData["Title"] - Library Managment System - Free Book Store HTML CSS Template</title>
@@ -56,8 +48,7 @@
 	<meta name="description" content="">
 
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
-		integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-
+		  integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="~/css/normalize.css">
 	<link rel="stylesheet" type="text/css" href="~/icomoon/icomoon.css">
 	<link rel="stylesheet" type="text/css" href="~/css/vendor.css">
@@ -66,111 +57,114 @@
 </head>
 <body>
 	<header id="header">
-			<div class="container-fluid">
-				<div class="row">
-
-					<div class="col-md-2">
-						<div class="main-logo">
-							<a href="index.html"><img src="images/main-logo.png" alt="logo"></a>
-						</div>
-
-					</div>
-
-					<div class="col-md-10">
-
-						<nav id="navbar">
-							<div class="main-menu stellarnav">
-								<ul class="menu-list">
-									<li class="nav-item">
-							<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link text-dark" asp-area="" asp-controller="Book" asp-action="GetAllBooks">Books</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link text-dark" asp-area="" asp-controller="Book" asp-action="searchBook">Search for a book</a>
-						</li>
-								@if (!User.Identity.IsAuthenticated)
-								{
-								<li class="nav-item">
-									<a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="viewRegistrationForm">Sign up</a>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Sign in</a>
-								</li>
-								}
-								@if (User.Identity.IsAuthenticated)
-								{
-									if (User.IsInRole("User"))
-									{
-											<li class="menu-item has-sub">
-												<a href="#" class="nav-link">User Statistics</a>
-												<ul>
-													<li >
-														<a asp-area="" asp-controller="Member" asp-action="viewBorrowingHistory">Borrowing History</a>
-													</li>
-													<li >
-														<a asp-area="" asp-controller="Member" asp-action="viewMemberProtal">Member Protal</a>
-													</li>
-												</ul>
-											</li>
-									}
-									else if (User.IsInRole("Admin"))
-									{
-												<li class="menu-item has-sub">
-														<a href="#" class="nav-link">Library Operations</a>
-
-												<ul>
-													<li>
-													<a  asp-area="" asp-controller="Checkout" asp-action="GetMemberBooksData">Assign Book </a>
-													</li>
-													<li >
-														<a  asp-area="" asp-controller="Checkout" asp-action="GetAllCheckouts">Get All Checkouts</a>
-													</li>
-													<li >
-														<a  asp-area="" asp-controller="Return" asp-action="getAllReturns">Returned Books</a>
-													</li>
-													<li >
-														<a  asp-area="" asp-controller="Penalty" asp-action="GetAllPenalties">Penalties Table</a>
-													</li>
-												</ul>
-											</li>
-											<li class="menu-item has-sub">
-													<a href="#" class="nav-link">Admin Operations</a>
-												<ul>
-													<li >
-													<a asp-area="" asp-controller="Admin" asp-action="AdminRegistration">Create New Admin </a>
-													</li>
-													<li >
-													<a  asp-area="" asp-controller="Role" asp-action="AddRole">Add New Role </a>
-													</li>
-												</ul>
-											</li>
-
-									}
-								<li class="nav-item">
-									<a class="nav-link text-dark" asp-area="" asp-controller="Member" asp-action="viewProfile">contact details</a>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="SignOut">Sign Out</a>
-								</li>
-								}
-								</ul>
-
-								<div class="hamburger">
-									<span class="bar"></span>
-									<span class="bar"></span>
-									<span class="bar"></span>
-								</div>
-
-							</div>
-						</nav>
-
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-2">
+					<div class="main-logo">
+						<a asp-controller="Home" asp-action="index"><img src="~/images/TR-logo.png" alt="logo" width="60px" height="50px"></a>
 					</div>
 
 				</div>
+
+				<div class="col-md-10">
+
+					<nav id="navbar">
+						<div class="main-menu stellarnav">
+							<ul class="menu-list">
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-area="" asp-controller="Book" asp-action="GetAllBooks">Books</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-area="" asp-controller="Book" asp-action="searchBook">Search for a book</a>
+								</li>
+								@if (!User.Identity.IsAuthenticated)
+								{
+									<li class="nav-item">
+										<a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="viewRegistrationForm">Sign up</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Sign in</a>
+									</li>
+								}
+								@if (User.Identity.IsAuthenticated)
+								{
+									var ControllerName = "Admin";
+									if (User.IsInRole("User"))
+									{
+										ControllerName = "Account";
+										<li class="menu-item has-sub">
+											<a href="#" class="nav-link">User Statistics</a>
+											<ul>
+												<li>
+													<a asp-area="" asp-controller="Member" asp-action="viewBorrowingHistory">Borrowing History</a>
+												</li>
+												<li>
+													<a asp-area="" asp-controller="Member" asp-action="viewMemberProtal">Member Protal</a>
+												</li>
+											</ul>
+										</li>
+									}
+									else if (User.IsInRole("Admin"))
+									{
+										<li class="menu-item has-sub">
+											<a href="#" class="nav-link">Library Operations</a>
+
+											<ul>
+												<li>
+													<a asp-area="" asp-controller="Checkout" asp-action="GetMemberBooksData">Assign Book </a>
+												</li>
+												<li>
+													<a asp-area="" asp-controller="Checkout" asp-action="GetAllCheckouts">Get All Checkouts</a>
+												</li>
+												<li>
+													<a asp-area="" asp-controller="Return" asp-action="getAllReturns">Returned Books</a>
+												</li>
+												<li>
+													<a asp-area="" asp-controller="Penalty" asp-action="GetAllPenalties">Penalties Table</a>
+												</li>
+											</ul>
+										</li>
+										<li class="menu-item has-sub">
+											<a href="#" class="nav-link">Admin Operations</a>
+											<ul>
+												<li>
+													<a asp-area="" asp-controller="Admin" asp-action="AdminRegistration">Create New Admin </a>
+												</li>
+												<li>
+													<a asp-area="" asp-controller="Role" asp-action="AddRole">Add New Role </a>
+												</li>
+											</ul>
+										</li>
+
+									}
+									<li class="nav-item">
+										<a class="nav-link text-dark" asp-area="" asp-controller="Member" asp-action="viewProfile">
+											<i class="icon icon-user"></i><span>@User.Identity.Name</span>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link text-dark" asp-area="" asp-controller="@ControllerName" asp-action="SignOut">Sign Out</a>
+									</li>
+								}
+							</ul>
+
+							<div class="hamburger">
+								<span class="bar"></span>
+								<span class="bar"></span>
+								<span class="bar"></span>
+							</div>
+
+						</div>
+					</nav>
+
+				</div>
+
 			</div>
-		</header>
+		</div>
+	</header>
 
 	@RenderBody();
 
@@ -181,12 +175,6 @@
 
 					<div class="copyright">
 						<div class="row">
-
-							<div class="col-md-6">
-								<p>© 2022 All rights reserved. Free HTML Template by <a
-										href="https://www.templatesjungle.com/" target="_blank">TemplatesJungle</a></p>
-							</div>
-
 							<div class="col-md-6">
 								<div class="social-links align-right">
 									<ul>
@@ -214,8 +202,8 @@
 	@RenderSection("Scripts", required: false)
 	<script src="~/js/jquery-1.11.0.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-		crossorigin="anonymous"></script>
+			integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+			crossorigin="anonymous"></script>
 	<script src="~/js/plugins.js"></script>
 	<script src="~/js/script.js"></script>
 

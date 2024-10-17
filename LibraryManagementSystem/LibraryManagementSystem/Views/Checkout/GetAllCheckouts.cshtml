@@ -33,6 +33,7 @@
                         <td>
                         @{
                             var returnedClass = check.Returned ? "text-success" : "text-danger";
+                            var color = check.Returned ? "#c1bbb5" : "#a26a3d";
                             var returnedText = check.Returned ? "Yes" : "No";
                         }
                             <span class="@returnedClass font-weight-bold">@returnedText</span>
@@ -40,7 +41,7 @@
                         <td> 
                             <form asp-action="recordReturn" asp-controller="Return" method="get">
                                 <input type="hidden" name="checkoutId" value="@check.CheckOutId" />
-                                <button type="submit" class="btn btn-primary rounded-pill" @(check.Returned ? "disabled" : "")>
+                            <button type="submit" style="background-color:@color" class="rounded-pill" @(check.Returned ? "disabled" : "")>
                                     Return Book
                                 </button>
                             </form>
