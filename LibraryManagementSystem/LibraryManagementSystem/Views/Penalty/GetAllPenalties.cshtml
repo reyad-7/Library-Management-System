@@ -1,71 +1,88 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "GetAllPenalties";
 }
 
 @model List<MemberPenaltyDetailsModelView>
 
-<h2 class="text-center mb-4">Penalties Table</h2>
+<h2 class="text-center mb-4" style="font-size: 2rem;">Penalties Table</h2>
 
-<table class="table table-striped table-hover table-bordered">
+<table>
     <thead class="thead-dark">
         <tr>
-            <th>PenaltyID</th>
-            <th>CheckOutID</th>
-            <th>MemberName</th>
-            <th>BookTitle</th>
-            <th>CheckOutDate</th>
-            <th>DueDate</th>
-            <th> ReturnDate</th>
-            <th>Penalty_Amount</th>
-            <th>Paid_Status</th>
-            <th>Pay Fees</th>
+            <th style="font-size: 1.2rem;">PenaltyID</th>
+            <th style="font-size: 1.2rem;">CheckOutID</th>
+            <th style="font-size: 1.2rem;">MemberName</th>
+            <th style="font-size: 1.2rem;">BookTitle</th>
+            <th style="font-size: 1.2rem;">CheckOutDate</th>
+            <th style="font-size: 1.2rem;">DueDate</th>
+            <th style="font-size: 1.2rem;">ReturnDate</th>
+            <th style="font-size: 1.2rem;">Penalty_Amount</th>
+            <th style="font-size: 1.2rem;">Paid_Status</th>
+            <th style="font-size: 1.2rem;">Pay Fees</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var penalty in Model)
         {
-                <tr>
-                    <td>@penalty.PenaltyId</td>
-                    <td>@penalty.CheckOutId</td>
-                    <td>@penalty.MemberName</td>
-                    <td>@penalty.BookTitle</td>
-                    <td>@penalty.CheckOutDate</td>
-                    <td>@penalty.DueDate</td>
-                    <td>@penalty.ReturnDate</td>
-                    <td>@penalty.PenaltyAmount</td>
-                    <td>@penalty.PaidStatus</td>
-                    <td>
-                        <form asp-action="payPenalty" asp-controller="Penalty" method="get">
-                            <input type="hidden" name="PenaltyId" value="@penalty.PenaltyId" />
-                            @if (penalty.PaidStatus == true)
-                            {         
-                                <button type="submit" class="btn btn-primary" disabled >Pay </button>
-                            }
-                            else
-                            {
-                                <button type="submit" class="btn btn-primary">Pay </button>
-                            }
-                        </form>
-                  </td>
-                </tr>
+            <tr>
+                <td style="font-size: 1.1rem;">@penalty.PenaltyId</td>
+                <td style="font-size: 1.1rem;">@penalty.CheckOutId</td>
+                <td style="font-size: 1.1rem;">@penalty.MemberName</td>
+                <td style="font-size: 1.1rem;">@penalty.BookTitle</td>
+                <td style="font-size: 1.1rem;">@penalty.CheckOutDate</td>
+                <td style="font-size: 1.1rem;">@penalty.DueDate</td>
+                <td style="font-size: 1.1rem;">@penalty.ReturnDate</td>
+                <td style="font-size: 1.1rem;">@penalty.PenaltyAmount</td>
+                <td style="font-size: 1.1rem;">@penalty.PaidStatus</td>
+                <td style="font-size: 1.1rem;">
+                    <form asp-action="payPenalty" asp-controller="Penalty" method="get">
+                        <input type="hidden" name="PenaltyId" value="@penalty.PenaltyId" />
+                        @if (penalty.PaidStatus == true)
+                        {
+                            <button type="submit"  disabled style="font-size: 1.1rem; border-radius:20px">Pay</button>
+                        }
+                        else
+                        {
+                            <button type="submit"  style="font-size: 1.1rem;border-radius:20px">Pay</button>
+                        }
+                    </form>
+                </td>
+            </tr>
         }
     </tbody>
 </table>
 
 <style>
+    button {
+        margin-top :50%;
+        width : 80px
+    }
     table {
         margin: auto;
-        width: 80%;
+        width: 90%;
         background-color: #f9f9f9;
+        border-radius: 10px; /* Rounded corners */
+        overflow: hidden; /* Clip the corners */
     }
+
     th, td {
         text-align: center;
         vertical-align: middle;
+        padding: 12px; /* Increase padding for better spacing */
+        font-family: 'Arial', sans-serif; /* Consistent font style */
     }
+
+    th {
+        background-color: #343a40; /* Dark background for the header */
+        color: white; /* White text for header */
+    }
+
+    tr:hover {
+        background-color: #e9ecef; /* Light grey background on hover */
+    }
+
     h2 {
         color: #333;
+        font-weight: bold; /* Make title bold */
     }
 </style>
-
-

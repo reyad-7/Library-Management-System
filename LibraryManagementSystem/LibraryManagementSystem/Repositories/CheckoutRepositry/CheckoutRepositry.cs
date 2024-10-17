@@ -15,7 +15,8 @@ namespace LibraryManagementSystem.Repositories.CheckoutRepositry
         }
         public IEnumerable<Checkout> GetAllCheckouts()
         {
-            return _context.Checkouts.Include(ch=>ch.User).Include(ch=>ch.Book).ToList();
+            var result = _context.Checkouts.Include(ch => ch.User).Include(ch => ch.Book).ToList();
+            return result;
         }
 
         public RecoredCheckoutModelView GetMemberBooksData()

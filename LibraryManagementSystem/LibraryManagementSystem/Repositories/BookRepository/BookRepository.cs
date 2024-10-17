@@ -10,7 +10,7 @@ namespace LibraryManagementSystem.Repositories.BookRepository
         }
         public IEnumerable<Book> GetAll()
         {
-            var books = _context.Books.ToList();
+            var books = _context.Books.Where(b=>b.NoOfCopies>0).ToList();
             return books;
 
         }

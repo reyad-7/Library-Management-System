@@ -1,4 +1,6 @@
 ﻿using LibraryManagementSystem.Models;
+using LibraryManagementSystem.Services.LoginService;
+using LibraryManagementSystem.Services.RegistrationService;
 using LibraryManagementSystem.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -7,15 +9,14 @@ using Microsoft.AspNetCore.Mvc;
 namespace LibraryManagementSystem.Controllers.AdminAccount
 {
     public class AdminController : Controller
-    {
-        private readonly UserManager<AppUser> userManager;
-        private readonly SignInManager<AppUser> signInManager;
+    { 
+        private readonly IRegistrationService registrationService;
+        private readonly ILoginService loginService;
 
-        public AdminController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+        public AdminController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager,IRegistrationService registrationService,ILoginService loginService)
         {
-
-            this.userManager = userManager;
-            this.signInManager = signInManager;
+            this.registrationService = registrationService;
+            this.loginService = loginService;
         }
 
         [Authorize(Roles = "Admin")]
@@ -28,40 +29,22 @@ namespace LibraryManagementSystem.Controllers.AdminAccount
         [HttpPost]
         public async Task<IActionResult> saveAdminRegistration(RegistrationModelView reg)
         {
-            if (ModelState.IsValid)
-            {
-                AppUser appUser = new AppUser();
-                appUser.Address = reg.Address;
-                appUser.UserName = reg.UserName;
-                appUser.FullName = reg.FullName;
-                appUser.PasswordHash = reg.Password;
-
-                IdentityResult result = await userManager.CreateAsync(appUser, reg.Password);
-                if (result.Succeeded)
-                {
-                    await userManager.AddToRoleAsync(appUser, "Admin");
-                    await signInManager.SignInAsync(appUser, false);
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    foreach (var item in result.Errors)
-
-                        ModelState.AddModelError("", item.Description);
-                }
-            }
-            return View("AdminRegistration", reg);
+            return await registrationService.saveRegistration(reg, "Admin", "AdminRegistration");
         }
         [HttpGet]
         public IActionResult Login()
         {
             return View();
         }
-       
-        public async Task<IActionResult> SignOut()
+
+		[HttpPost]
+		public async Task<IActionResult> SaveLogin(UserLoginViewModel userLoginViewModel)
+		{
+			return await loginService.SaveLogin(userLoginViewModel);
+		}
+		public async Task<IActionResult> SignOut()
         {
-            await signInManager.SignOutAsync();
-            return RedirectToAction("Login", "Admin");
+            return await loginService.SignOut("Admin");
         }
     }
 }

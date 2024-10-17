@@ -2,34 +2,35 @@
 @{
     ViewData["Title"] = "viewBorrowingHistory";
 }
-<h2 class="text-center mb-4">Borrowing History</h2>
-
-<table class="table table-striped table-hover table-bordered">
-    <thead class="thead-dark">
-        <tr>
-            <th>Title</th>
-            <th>CheckOutDate</th>
-            <th>Book Statues</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var i in Model)
-        {
+<h1 class="text-center mb-4">Borrowing History</h1>
+<div style="margin-left:10%;margin-right:10%">
+    <table class="table table-striped table-hover table-bordered">
+        <thead class="thead-dark">
             <tr>
-                <td>@i.Book.Title</td>
-                <td>@i.CheckOutDate</td>
-                @if (i.Returned==true)
-                {
-                    <td style="color : green">returned</td>
-                }
-                else
-                {
-                    <td style="color:red;">borrowed</td>
-                }
+                <th>Title</th>
+                <th>CheckOutDate</th>
+                <th>Book Statues</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var i in Model)
+            {
+                <tr>
+                    <td>@i.Book.Title</td>
+                    <td>@i.CheckOutDate</td>
+                    @if (i.Returned==true)
+                    {
+                        <td style="color : green">returned</td>
+                    }
+                    else
+                    {
+                        <td style="color:red;">borrowed</td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 
 <style>
     table {
