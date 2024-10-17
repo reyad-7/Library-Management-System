@@ -1,4 +1,5 @@
 ﻿using LibraryManagementSystem.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace LibraryManagementSystem.Repositories.ReturnRepository
 {
@@ -25,10 +26,10 @@ namespace LibraryManagementSystem.Repositories.ReturnRepository
             };
             _context.Add(returnedBook);
 
-            var checkOutBook = _context.Checkouts.FirstOrDefault(c => c.CheckOutId == checkoutId);
+            var checkOutBook = _context.Checkouts.Include("Book").FirstOrDefault(c => c.CheckOutId == checkoutId);
             checkOutBook.Returned = true;
-
-
+            checkOutBook.Book.NoOfCopies++;
+            
             DateTime returnedDateTime = returnedBook.ReturnDate.ToDateTime(new TimeOnly(0, 0));
             DateTime dueDateTime = checkOutBook.DueDate.ToDateTime(new TimeOnly(0, 0));
 

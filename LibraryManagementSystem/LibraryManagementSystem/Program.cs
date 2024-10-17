@@ -26,8 +26,6 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<Library_Management_SystemContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-//builder.Services.AddIdentity<AppUser, IdentityRole>()
-//    .AddEntityFrameworkStores<Library_Management_SystemContext>();
 
 
 builder.Services.AddScoped<IBookRepository, BookRepository>();
@@ -64,12 +62,6 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(option =>
 
 })
     .AddEntityFrameworkStores<Library_Management_SystemContext>();
-
-//builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
-//{
-//    options.SignIn.RequireConfirmedAccount = true;
-//}).AddEntityFrameworkStores<Library_Management_SystemContext>();
-
 
 
 var app = builder.Build();

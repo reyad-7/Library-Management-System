@@ -1,0 +1,46 @@
+@model List<Book>
+@{
+    Layout = "_AdvLayout";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Books List</h2>
+    <table class="table table-striped table-hover table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Genre</th>
+                <th>Number of Copies</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var book in Model)
+                {
+                    <tr>
+                        <td>@book.Title</td>
+                        <td>@book.Author</td>
+                        <td>@book.Genre</td>
+                        <td>@book.NoOfCopies</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="4" class="text-center">No books available.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<style>
+    th, td {
+        text-align: center;
+        vertical-align: middle;
+        padding: 12px;
+    }
+</style>
